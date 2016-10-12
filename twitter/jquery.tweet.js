@@ -155,7 +155,7 @@
 			if (s.list) {
 				return {
 					host: s.twitter_api_url,
-					url: "/1.1/lists/statuses.json",
+					url: "lists/statuses",
 					parameters: $.extend({}, defaults, {
 						list_id: s.list_id,
 						slug: s.list,
@@ -168,7 +168,7 @@
 			} else if (s.favorites) {
 				return {
 					host: s.twitter_api_url,
-					url: "/1.1/favorites/list.json",
+					url: "favorites/list",
 					parameters: $.extend({}, defaults, {
 						list_id: s.list_id,
 						screen_name: s.username,
@@ -179,9 +179,9 @@
 			} else if (s.query === null && s.username.length === 1) {
 				return {
 					host: s.twitter_api_url,
-					url: "/1.1/statuses/user_timeline.json",
+					url: "statuses/user_timeline",
 					parameters: $.extend({}, defaults, {
-						screen_name: s.username,
+						screen_name: s.username[0],
 						page: s.page,
 						count: count,
 						include_rts: (s.retweets ? 1 : 0)
@@ -191,7 +191,7 @@
 				var query = (s.query || 'from:'+s.username.join(' OR from:'));
 				return {
 					host: s.twitter_search_url,
-					url: "/1.1/search/tweets.json",
+					url: "search/tweets",
 					parameters: $.extend({}, defaults, {
 						q: query,
 						count: count
@@ -270,7 +270,8 @@
 					type: "post",
 					async: false,
 					url: s.modpath || "/twitter/",
-					data: { request: build_api_request() },
+					data: JSON.stringify({ request: build_api_request() }),
+					contentType: "application/json; charset=utf-8",
 					success: function(data, status) {
 
 						if(data.message) {
