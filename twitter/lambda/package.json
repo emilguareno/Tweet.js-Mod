@@ -1,0 +1,11 @@
+{
+  "name": "twitter-app",
+  "version": "1.0.0",
+  "description": "Retrieves tweets from different accounts",
+  "main": "index.js",
+  "author": "Emil Guareno",
+  "license": "ISC",
+  "dependencies": {
+    "twitter": "^1.4.0"
+  }
+}
